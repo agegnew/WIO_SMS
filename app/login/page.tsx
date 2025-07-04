@@ -6,8 +6,10 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { EyeIcon, EyeOffIcon, LockIcon, MailIcon, ArrowLeftIcon } from "lucide-react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
+  const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -273,7 +275,10 @@ export default function LoginPage() {
           loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}>
           {/* Back Button */}
-          <button className="mb-4 p-2 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-pink-500/20 transition-all duration-300 border border-pink-300/20 hover:border-pink-300/40 hover:scale-105 transform-gpu">
+          <button 
+            onClick={() => router.back()}
+            className="mb-4 p-2 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-pink-500/20 transition-all duration-300 border border-pink-300/20 hover:border-pink-300/40 hover:scale-105 transform-gpu"
+          >
             <ArrowLeftIcon className="w-5 h-5 text-pink-100" />
           </button>
         </div>
@@ -401,6 +406,7 @@ export default function LoginPage() {
               <Button
                 type="button"
                 variant="outline"
+                onClick={() => router.push('/signup')}
                 className="w-full h-11 text-sm font-medium bg-transparent border border-pink-300/30 text-pink-100 hover:bg-pink-500/10 hover:border-pink-300/50 hover:text-white hover:shadow-lg transition-all duration-300 transform hover:scale-[1.01] rounded-lg backdrop-blur-sm transform-gpu"
               >
                 Create Account
