@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Messages</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="conversations.length > 0; else noMessages">
+    <ion-item 
+      *ngFor="let conversation of conversations" 
+      button 
+      (click)="openConversation(conversation)"
+      class="conversation-item">
+      
+      <ion-avatar slot="start">
+        <div class="avatar-placeholder">
+          {{ getInitials(conversation.contactName) }}
+        </div>
+      </ion-avatar>
+      
+      <ion-label>
+        <div class="conversation-header">
+          <h2>{{ conversation.contactName }}</h2>
+          <p class="timestamp">{{ getTimeAgo(conversation.lastMessageTime) }}</p>
+        </div>
+        <p class="last-message" [class.unread]="conversation.unreadCount > 0">
+          {{ conversation.lastMessage }}
+        </p>
+      </ion-label>
+      
+      <ion-badge 
+        *ngIf="conversation.unreadCount > 0" 
+        color="primary" 
+        slot="end">
+        {{ conversation.unreadCount }}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noMessages>
+    <div class="no-messages">
+      <ion-icon name="chatbubbles-outline" size="large"></ion-icon>
+      <h3>No messages yet</h3>
+      <p>Your SMS conversations will appear here</p>
+    </div>
+  </ng-template>
+</ion-content>

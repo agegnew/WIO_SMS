@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    
+    <div class="conversation-header" *ngIf="conversation">
+      <ion-avatar>
+        <div class="avatar-placeholder">
+          {{ getInitials(conversation.contactName) }}
+        </div>
+      </ion-avatar>
+      <div class="contact-info">
+        <ion-title>{{ conversation.contactName }}</ion-title>
+        <p class="contact-number">{{ conversation.contactNumber }}</p>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="conversation-content">
+  <div class="messages-container" *ngIf="conversation">
+    <ng-container *ngFor="let message of conversation.messages; let i = index">
+      <!-- Date header -->
+      <div class="date-header" *ngIf="shouldShowDateHeader(message, i)">
+        {{ formatDate(message.date) }}
+      </div>
+      
+      <!-- Message bubble -->
+      <div class="message-wrapper" [class.sent]="message.type === 'sent'" [class.received]="message.type === 'inbox'">
+        <div class="message-bubble">
+          <p class="message-text">{{ message.body }}</p>
+          <span class="message-time">{{ formatTime(message.date) }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="message-input-container">
+      <ion-item lines="none" class="message-input">
+        <ion-textarea
+          [(ngModel)]="newMessage"
+          placeholder="Type a message..."
+          rows="1"
+          autoGrow="true"
+          maxlength="1000"
+          (keydown.enter)="sendMessage()"
+          class="message-textarea">
+        </ion-textarea>
+      </ion-item>
+      <ion-button 
+        fill="clear" 
+        size="large" 
+        (click)="sendMessage()"
+        [disabled]="!newMessage.trim()"
+        class="send-button">
+        <ion-icon name="send" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
