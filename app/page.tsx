@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import QRCode from "qrcode-generator"
 
 // Types for the SMS plugin
@@ -22,6 +23,7 @@ interface PermissionStatus {
 }
 
 export default function SyntheticV0PageForDeployment() {
+  const router = useRouter()
   const [hasPermission, setHasPermission] = useState(false)
   const [isRequesting, setIsRequesting] = useState(false)
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("")
@@ -237,7 +239,17 @@ export default function SyntheticV0PageForDeployment() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-start p-4">
       <div className="max-w-4xl w-full space-y-8">
-        <div className="text-center">
+        <div className="text-center relative">
+          {/* Login Button */}
+          <div className="absolute top-0 right-0">
+            <button
+              onClick={() => router.push('/login')}
+              className="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              Login
+            </button>
+          </div>
+          
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
             SMS Messenger App
           </h2>
