@@ -31,7 +31,6 @@ export default function SignupPage() {
   const [logoVisible, setLogoVisible] = useState(false)
   const [logoExploding, setLogoExploding] = useState(false)
   const [cameraZooming, setCameraZooming] = useState(false)
-  const [particlesActive, setParticlesActive] = useState(false)
   const [loginEntering, setLoginEntering] = useState(false)
   
   const [formData, setFormData] = useState<FormData>({
@@ -49,35 +48,32 @@ export default function SignupPage() {
   const totalSteps = 4
 
   useEffect(() => {
-    // Complex animation sequence
+    // Modern fast animation sequence
     const logoTimer = setTimeout(() => {
       setLogoVisible(true)
-    }, 500)
+    }, 200)
 
     const explodeTimer = setTimeout(() => {
       setLogoExploding(true)
-    }, 2000)
+    }, 800)
 
-    const particlesTimer = setTimeout(() => {
-      setParticlesActive(true)
-    }, 2300)
+
 
     const zoomTimer = setTimeout(() => {
       setCameraZooming(true)
-    }, 2600)
+    }, 1000)
 
     const loginTimer = setTimeout(() => {
       setLoginEntering(true)
-    }, 3200)
+    }, 1200)
 
     const splashTimer = setTimeout(() => {
       setShowSplash(false)
-    }, 4000)
+    }, 1600)
 
     return () => {
       clearTimeout(logoTimer)
       clearTimeout(explodeTimer)
-      clearTimeout(particlesTimer)
       clearTimeout(zoomTimer)
       clearTimeout(loginTimer)
       clearTimeout(splashTimer)
@@ -194,41 +190,50 @@ export default function SignupPage() {
           cameraZooming ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
         }`}>
           
-          {/* 3D Rotating Logo Container */}
-          <div className={`relative transform-gpu transition-all duration-1200 ease-out ${
+          {/* Modern Logo Container */}
+          <div className={`relative transform-gpu transition-all duration-600 ease-out ${
             logoVisible 
-              ? 'opacity-100 scale-100 translate-y-0 rotateY-0' 
-              : 'opacity-0 scale-50 translate-y-20 rotateY-180'
+              ? 'opacity-100 scale-100 translate-y-0' 
+              : 'opacity-0 scale-75 translate-y-8'
           } ${
             logoExploding 
-              ? 'scale-110 rotateX-12 rotateY-12 animate-pulse' 
+              ? 'scale-105 animate-pulse' 
               : ''
           }`}
           style={{
             transform: logoExploding 
-              ? 'perspective(1000px) rotateX(12deg) rotateY(12deg) scale(1.1)' 
+              ? 'scale(1.05)' 
               : logoVisible 
-                ? 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)' 
-                : 'perspective(1000px) rotateX(0deg) rotateY(180deg) scale(0.5)',
-            transformStyle: 'preserve-3d'
+                ? 'scale(1)' 
+                : 'scale(0.75) translateY(32px)',
+            filter: logoExploding ? 'brightness(1.2)' : 'brightness(1)'
           }}>
             
-            {/* Multi-layered Glow Effects */}
+            {/* Professional Breathing Glow System */}
             <div className="absolute inset-0 -z-10">
-              {/* Primary glow */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-pink-500/30 to-purple-500/30 rounded-full blur-3xl scale-150 transition-all duration-1000 ${
-                logoExploding ? 'scale-300 opacity-80 animate-spin' : 'scale-150'
-              }`} />
+              {/* Core Energy Ring */}
+              <div className={`absolute inset-0 bg-gradient-to-r from-pink-500/60 to-purple-500/60 rounded-full blur-xl scale-110 transition-all duration-400 ${
+                logoExploding ? 'scale-140 opacity-95' : 'scale-110'
+              }`} 
+              style={{
+                animation: logoVisible ? 'breathe 3s ease-in-out infinite' : 'none'
+              }} />
               
-              {/* Secondary glow */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-violet-400/20 to-pink-400/20 rounded-full blur-2xl scale-200 transition-all duration-700 delay-200 ${
-                logoExploding ? 'scale-400 opacity-60' : 'scale-200'
-              }`} />
+              {/* Ambient Halo */}
+              <div className={`absolute inset-0 bg-gradient-to-r from-violet-400/40 to-pink-400/40 rounded-full blur-2xl scale-130 transition-all duration-300 delay-100 ${
+                logoExploding ? 'scale-180 opacity-80' : 'scale-130'
+              }`}
+              style={{
+                animation: logoVisible ? 'breathe-reverse 4s ease-in-out infinite' : 'none'
+              }} />
               
-              {/* Outer aura */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-purple-300/10 to-pink-300/10 rounded-full blur-4xl scale-300 transition-all duration-500 delay-400 ${
-                logoExploding ? 'scale-500 opacity-40' : 'scale-300'
-              }`} />
+              {/* Outer Energy Field */}
+              <div className={`absolute inset-0 bg-gradient-to-r from-purple-300/25 to-pink-300/25 rounded-full blur-3xl scale-160 transition-all duration-500 delay-200 ${
+                logoExploding ? 'scale-220 opacity-60' : 'scale-160'
+              }`}
+              style={{
+                animation: logoVisible ? 'breathe 5s ease-in-out infinite' : 'none'
+              }} />
             </div>
 
             {/* Main Logo with 3D effect */}
@@ -249,80 +254,13 @@ export default function SignupPage() {
               />
             </div>
 
-            {/* Particle explosion effect */}
-            {particlesActive && (
-              <div className="absolute inset-0 pointer-events-none">
-                {[...Array(12)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-ping"
-                    style={{
-                      left: '50%',
-                      top: '50%',
-                      transform: `translate(-50%, -50%) rotate(${i * 30}deg) translateY(-${50 + i * 10}px)`,
-                      animationDelay: `${i * 0.1}s`,
-                      animationDuration: '0.8s'
-                    }}
-                  />
-                ))}
-                
-                {/* Additional micro particles */}
-                {[...Array(20)].map((_, i) => (
-                  <div
-                    key={`micro-${i}`}
-                    className="absolute w-1 h-1 bg-white/60 rounded-full animate-bounce"
-                    style={{
-                      left: `${45 + Math.random() * 10}%`,
-                      top: `${45 + Math.random() * 10}%`,
-                      animationDelay: `${i * 0.05}s`,
-                      animationDuration: `${0.5 + Math.random() * 0.5}s`
-                    }}
-                  />
-                ))}
-              </div>
-            )}
+
           </div>
 
-          {/* Floating geometric elements */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={`geo-${i}`}
-                className={`absolute w-3 h-3 border border-pink-300/30 rotate-45 transition-all duration-2000 ease-out ${
-                  logoVisible ? 'opacity-60 animate-pulse' : 'opacity-0'
-                }`}
-                style={{
-                  left: `${10 + i * 15}%`,
-                  top: `${20 + (i % 2) * 60}%`,
-                  animationDelay: `${i * 0.3}s`,
-                  animationDuration: `${2 + i * 0.5}s`
-                }}
-              />
-            ))}
-          </div>
 
-          {/* Energy waves */}
-          {logoExploding && (
-            <div className="absolute inset-0 pointer-events-none">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={`wave-${i}`}
-                  className="absolute inset-0 border-2 border-pink-400/20 rounded-full animate-ping"
-                  style={{
-                    animationDelay: `${i * 0.2}s`,
-                    animationDuration: '1s'
-                  }}
-                />
-              ))}
-            </div>
-          )}
         </div>
 
-        {/* Cinematic scan lines effect */}
-        <div className="absolute inset-0 z-20 pointer-events-none opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-1 animate-pulse" 
-               style={{ animation: 'scan 2s linear infinite' }} />
-        </div>
+
       </div>
     )
   }
@@ -331,7 +269,7 @@ export default function SignupPage() {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
                 <label htmlFor="firstName" className="text-pink-100 font-medium text-xs">
@@ -345,7 +283,7 @@ export default function SignupPage() {
                     placeholder="John"
                     value={formData.firstName}
                     onChange={(e) => updateFormData('firstName', e.target.value)}
-                    className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                    className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                     required
                   />
                 </div>
@@ -363,7 +301,7 @@ export default function SignupPage() {
                     placeholder="Doe"
                     value={formData.lastName}
                     onChange={(e) => updateFormData('lastName', e.target.value)}
-                    className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                    className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                     required
                   />
                 </div>
@@ -381,7 +319,7 @@ export default function SignupPage() {
                   type="date"
                   value={formData.dateOfBirth}
                   onChange={(e) => updateFormData('dateOfBirth', e.target.value)}
-                  className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                  className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                   required
                 />
               </div>
@@ -394,7 +332,7 @@ export default function SignupPage() {
               <div className="relative">
                 <GlobeIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-3 h-3 z-10" />
                 <Select value={formData.nationality} onValueChange={(value) => updateFormData('nationality', value)}>
-                  <SelectTrigger className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu">
+                  <SelectTrigger className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu">
                     <SelectValue placeholder="Select your nationality" />
                   </SelectTrigger>
                   <SelectContent className="bg-white/95 backdrop-blur-sm border-pink-200/30">
@@ -412,7 +350,7 @@ export default function SignupPage() {
 
       case 2:
         return (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <div className="space-y-1">
               <label htmlFor="email" className="text-pink-100 font-medium text-xs">
                 Email Address
@@ -425,7 +363,7 @@ export default function SignupPage() {
                   placeholder="john.doe@example.com"
                   value={formData.email}
                   onChange={(e) => updateFormData('email', e.target.value)}
-                  className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                  className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                   required
                 />
               </div>
@@ -443,7 +381,7 @@ export default function SignupPage() {
                   placeholder="+971 50 123 4567"
                   value={formData.phoneNumber}
                   onChange={(e) => updateFormData('phoneNumber', e.target.value)}
-                  className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                  className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                   required
                 />
               </div>
@@ -453,7 +391,7 @@ export default function SignupPage() {
 
       case 3:
         return (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <div className="space-y-1">
               <label htmlFor="password" className="text-pink-100 font-medium text-xs">
                 Password
@@ -466,7 +404,7 @@ export default function SignupPage() {
                   placeholder="Create a strong password"
                   value={formData.password}
                   onChange={(e) => updateFormData('password', e.target.value)}
-                  className="pl-8 pr-9 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                  className="pl-8 pr-9 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                   required
                 />
                 <button
@@ -495,7 +433,7 @@ export default function SignupPage() {
                   placeholder="Confirm your password"
                   value={formData.confirmPassword}
                   onChange={(e) => updateFormData('confirmPassword', e.target.value)}
-                  className="pl-8 pr-9 h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
+                  className="pl-8 pr-9 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu"
                   required
                 />
                 <button
@@ -515,7 +453,7 @@ export default function SignupPage() {
               )}
             </div>
 
-            <div className="bg-pink-100/10 backdrop-blur-sm rounded-lg p-2 border border-pink-300/20">
+            <div className="bg-pink-100/10 backdrop-blur-sm rounded-lg p-2 shadow-lg">
               <p className="text-pink-200/80 text-xs">
                 Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.
               </p>
@@ -525,7 +463,7 @@ export default function SignupPage() {
 
       case 4:
         return (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <div className="space-y-1">
               <label htmlFor="hearAboutUs" className="text-pink-100 font-medium text-xs">
                 How did you hear about us?
@@ -533,7 +471,7 @@ export default function SignupPage() {
               <div className="relative">
                 <HeartHandshakeIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-3 h-3 z-10" />
                 <Select value={formData.hearAboutUs} onValueChange={(value) => updateFormData('hearAboutUs', value)}>
-                  <SelectTrigger className="pl-8 h-9 bg-white/95 border-2 border-white/30 text-slate-800 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu">
+                  <SelectTrigger className="pl-8 h-8 sm:h-9 bg-white/95 border-2 border-white/30 text-slate-800 focus:ring-2 focus:bg-white rounded-lg backdrop-blur-sm transition-all duration-300 text-xs font-medium shadow-sm hover:shadow-md focus:shadow-lg transform-gpu">
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
                   <SelectContent className="bg-white/95 backdrop-blur-sm border-pink-200/30">
@@ -547,7 +485,7 @@ export default function SignupPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-pink-100/10 to-purple-100/10 backdrop-blur-sm rounded-lg p-3 border border-pink-300/20">
+            <div className="bg-gradient-to-r from-pink-100/10 to-purple-100/10 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-lg">
               <h3 className="text-pink-200 font-medium text-xs mb-1">🎉 Welcome to the WIO Family!</h3>
               <p className="text-pink-200/80 text-xs leading-relaxed">
                 You're about to join thousands of satisfied customers who trust WIO Bank for their financial needs. 
@@ -562,18 +500,17 @@ export default function SignupPage() {
     }
   }
 
-  // Epic Signup Page with Same Design
+  // Modern Responsive Signup Page
   return (
-    <div className={`h-screen relative overflow-hidden transition-all duration-1200 ease-out transform ${
+    <div className={`min-h-screen h-screen relative overflow-hidden transition-all duration-600 ease-out transform ${
       loginEntering 
-        ? 'opacity-100 scale-100 blur-0 rotateX-0' 
-        : 'opacity-0 scale-95 blur-sm rotateX-12'
+        ? 'opacity-100 scale-100 blur-0' 
+        : 'opacity-0 scale-98 blur-sm'
     }`}
     style={{
       transform: loginEntering 
-        ? 'perspective(1000px) rotateX(0deg) scale(1)' 
-        : 'perspective(1000px) rotateX(12deg) scale(0.95)',
-      transformStyle: 'preserve-3d'
+        ? 'scale(1)' 
+        : 'scale(0.98)'
     }}>
       {/* Video Background with entrance effect */}
       <div className={`absolute inset-0 z-0 transition-all duration-1000 ${
@@ -597,45 +534,55 @@ export default function SignupPage() {
       {/* Content Layer with staggered entrance */}
       <div className="relative z-10 h-screen flex flex-col">
         {/* Progress Bar - Top Fixed */}
-        <div className={`pt-4 px-6 transition-all duration-800 delay-300 ${
+        <div className={`pt-2 sm:pt-4 px-4 sm:px-6 flex-shrink-0 transition-all duration-400 delay-100 ${
           loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}>
-          <div className="mb-2">
+          <div className="mb-1 sm:mb-2">
             <div className="flex justify-between items-center mb-1">
               <span className="text-pink-200/80 text-xs font-medium">Step {currentStep} of {totalSteps}</span>
               <span className="text-pink-200/80 text-xs">{Math.round((currentStep / totalSteps) * 100)}%</span>
             </div>
             <div className="w-full bg-pink-300/20 rounded-full h-1.5 backdrop-blur-sm">
               <div 
-                className="bg-gradient-to-r from-pink-400 to-purple-400 h-1.5 rounded-full transition-all duration-500 ease-out"
+                className="bg-gradient-to-r from-pink-400 to-purple-400 h-1.5 rounded-full transition-all duration-300 ease-out"
                 style={{ width: `${(currentStep / totalSteps) * 100}%` }}
               />
             </div>
           </div>
         </div>
 
-        {/* Logo and Step Header - Centered Between Progress and Form */}
-        <div className="flex-1 flex flex-col items-center justify-center px-6">
+        {/* Logo and Step Header - Responsive Centered */}
+        <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 py-2 sm:py-4 min-h-0">
           {/* Logo Section */}
-          <div className={`text-center mb-3 transition-all duration-800 delay-500 transform ${
-            loginEntering ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-90'
+          <div className={`text-center mb-2 sm:mb-3 transition-all duration-400 delay-200 transform ${
+            loginEntering ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
           }`}>
-            <div className="mb-2 flex justify-center">
-              <Image
-                src="/wiologo.svg"
-                alt="WIO Bank Logo"
-                width={80}
-                height={40}
-                className="filter brightness-0 invert"
-              />
+            <div className="mb-1 sm:mb-2 flex justify-center">
+              <div className="relative"
+                   style={{
+                     animation: loginEntering ? 'float 6s ease-in-out infinite' : 'none'
+                   }}>
+                <Image
+                  src="/wiologo.svg"
+                  alt="WIO Bank Logo"
+                  width={64}
+                  height={32}
+                  className="filter brightness-0 invert drop-shadow-xl sm:w-20 sm:h-10"
+                />
+                {/* Subtle glow around main logo */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full blur-lg"
+                     style={{
+                       animation: loginEntering ? 'breathe 4s ease-in-out infinite' : 'none'
+                     }} />
+              </div>
             </div>
           </div>
 
           {/* Dynamic Step Header */}
-          <div className={`text-center mb-4 w-full max-w-2xl transition-all duration-800 delay-700 transform ${
-            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          <div className={`text-center mb-2 sm:mb-4 w-full max-w-2xl mx-auto transition-all duration-400 delay-300 transform ${
+            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            <h1 className="text-2xl md:text-3xl font-light text-white mb-2 leading-tight tracking-wide">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-1 sm:mb-2 leading-tight tracking-wide">
               {currentStep === 1 && (
                 <>
                   Personal
@@ -673,23 +620,23 @@ export default function SignupPage() {
         </div>
 
         {/* Form Container - Bottom Section */}
-        <div className="px-6 pb-20">
+        <div className="px-4 sm:px-6 pb-16 sm:pb-24 flex-shrink-0">
           {/* Multi-Step Form */}
-          <div className={`w-full max-w-sm mx-auto transition-all duration-800 delay-900 transform ${
-            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          <div className={`w-full max-w-sm mx-auto transition-all duration-400 delay-400 transform ${
+            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
           }`}>
             <form onSubmit={handleSubmit}>
               {/* Render Current Step */}
               {renderStep()}
 
               {/* Navigation Buttons */}
-              <div className="flex gap-2 mt-4">
+              <div className="flex gap-2 mt-3 sm:mt-4">
                 {currentStep > 1 && (
                   <Button
                     type="button"
                     onClick={prevStep}
                     variant="outline"
-                    className="flex-1 h-9 text-xs font-medium bg-transparent border border-pink-300/30 text-pink-100 hover:bg-pink-500/10 hover:border-pink-300/50 hover:text-white hover:shadow-lg transition-all duration-300 transform hover:scale-[1.01] rounded-lg backdrop-blur-sm transform-gpu"
+                    className="flex-1 h-8 sm:h-9 text-xs font-medium bg-white/5 backdrop-blur-sm text-pink-100 hover:bg-pink-500/20 hover:text-white hover:shadow-lg transition-all duration-200 transform hover:scale-[1.01] rounded-lg transform-gpu"
                   >
                     <ArrowLeftIcon className="w-3 h-3 mr-1" />
                     Previous
@@ -699,7 +646,7 @@ export default function SignupPage() {
                 <Button
                   type="submit"
                   disabled={isLoading || !isStepValid()}
-                  className={`${currentStep === 1 ? 'w-full' : 'flex-1'} h-9 text-xs font-semibold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 hover:shadow-xl hover:shadow-pink-500/40 text-white border-0 rounded-lg transition-all duration-300 transform hover:scale-[1.02] disabled:scale-100 disabled:opacity-50 shadow-lg shadow-pink-500/25 transform-gpu`}
+                  className={`${currentStep === 1 ? 'w-full' : 'flex-1'} h-8 sm:h-9 text-xs font-semibold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 hover:shadow-xl hover:shadow-pink-500/40 text-white border-0 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:scale-100 disabled:opacity-50 shadow-lg shadow-pink-500/25 transform-gpu`}
                 >
                   {isLoading ? (
                     <div className="flex items-center space-x-2">
@@ -719,7 +666,7 @@ export default function SignupPage() {
             </form>
 
             {/* Professional Bottom Section */}
-            <div className={`mt-4 text-center space-y-1 transition-all duration-800 delay-1100 transform ${
+            <div className={`mt-3 sm:mt-4 text-center space-y-1 transition-all duration-400 delay-500 transform ${
               loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
             }`}>
               {/* Already have account */}
@@ -737,12 +684,12 @@ export default function SignupPage() {
         </div>
 
         {/* Fixed License Information - Always in Same Position */}
-        <div className={`absolute bottom-6 left-0 right-0 text-center space-y-1 transition-all duration-800 delay-1200 transform ${
+        <div className={`absolute bottom-2 sm:bottom-6 left-0 right-0 text-center space-y-1 transition-all duration-400 delay-600 transform ${
           loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
         }`}>
           <p className="text-pink-200/80 text-xs font-medium flex items-center justify-center space-x-1">
             <LockIcon className="w-3 h-3" />
-            <span>Licensed and Regulated by UAE Central Bank</span>
+            <span className="text-xs sm:text-sm">Licensed and Regulated by UAE Central Bank</span>
           </p>
           <p className="text-pink-300/60 text-xs">
             Your deposits are protected up to AED 250,000
@@ -753,10 +700,4 @@ export default function SignupPage() {
   )
 }
 
-// Custom CSS for scan line animation
-const style = `
-@keyframes scan {
-  0% { transform: translateY(-100vh); }
-  100% { transform: translateY(100vh); }
-}
-` 
+ 

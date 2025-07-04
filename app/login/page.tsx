@@ -18,39 +18,35 @@ export default function LoginPage() {
   const [logoVisible, setLogoVisible] = useState(false)
   const [logoExploding, setLogoExploding] = useState(false)
   const [cameraZooming, setCameraZooming] = useState(false)
-  const [particlesActive, setParticlesActive] = useState(false)
   const [loginEntering, setLoginEntering] = useState(false)
 
   useEffect(() => {
-    // Complex animation sequence
+    // Modern fast animation sequence
     const logoTimer = setTimeout(() => {
       setLogoVisible(true)
-    }, 500)
+    }, 200)
 
     const explodeTimer = setTimeout(() => {
       setLogoExploding(true)
-    }, 2000)
+    }, 800)
 
-    const particlesTimer = setTimeout(() => {
-      setParticlesActive(true)
-    }, 2300)
+
 
     const zoomTimer = setTimeout(() => {
       setCameraZooming(true)
-    }, 2600)
+    }, 1000)
 
     const loginTimer = setTimeout(() => {
       setLoginEntering(true)
-    }, 3200)
+    }, 1200)
 
     const splashTimer = setTimeout(() => {
       setShowSplash(false)
-    }, 4000)
+    }, 1600)
 
     return () => {
       clearTimeout(logoTimer)
       clearTimeout(explodeTimer)
-      clearTimeout(particlesTimer)
       clearTimeout(zoomTimer)
       clearTimeout(loginTimer)
       clearTimeout(splashTimer)
@@ -64,10 +60,16 @@ export default function LoginPage() {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500))
     
-    // Here you would typically make an API call to authenticate
-    console.log("Login attempt:", { email, password })
-    
-    setIsLoading(false)
+    // Check for fake credentials
+    if (email === 'test@test.com' && password === '123') {
+      setIsLoading(false)
+      // Successful login - redirect to SMS functionality
+      router.push('/sms')
+    } else {
+      setIsLoading(false)
+      // Show error for wrong credentials
+      alert('Invalid credentials. Please use:\nEmail: test@test.com\nPassword: 123')
+    }
   }
 
   // Epic Splash Screen with Mind-Blowing Animations
@@ -103,41 +105,50 @@ export default function LoginPage() {
           cameraZooming ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
         }`}>
           
-          {/* 3D Rotating Logo Container */}
-          <div className={`relative transform-gpu transition-all duration-1200 ease-out ${
+          {/* Modern Logo Container */}
+          <div className={`relative transform-gpu transition-all duration-600 ease-out ${
             logoVisible 
-              ? 'opacity-100 scale-100 translate-y-0 rotateY-0' 
-              : 'opacity-0 scale-50 translate-y-20 rotateY-180'
+              ? 'opacity-100 scale-100 translate-y-0' 
+              : 'opacity-0 scale-75 translate-y-8'
           } ${
             logoExploding 
-              ? 'scale-110 rotateX-12 rotateY-12 animate-pulse' 
+              ? 'scale-105 animate-pulse' 
               : ''
           }`}
           style={{
             transform: logoExploding 
-              ? 'perspective(1000px) rotateX(12deg) rotateY(12deg) scale(1.1)' 
+              ? 'scale(1.05)' 
               : logoVisible 
-                ? 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)' 
-                : 'perspective(1000px) rotateX(0deg) rotateY(180deg) scale(0.5)',
-            transformStyle: 'preserve-3d'
+                ? 'scale(1)' 
+                : 'scale(0.75) translateY(32px)',
+            filter: logoExploding ? 'brightness(1.2)' : 'brightness(1)'
           }}>
             
-            {/* Multi-layered Glow Effects */}
+            {/* Professional Breathing Glow System */}
             <div className="absolute inset-0 -z-10">
-              {/* Primary glow */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-pink-500/30 to-purple-500/30 rounded-full blur-3xl scale-150 transition-all duration-1000 ${
-                logoExploding ? 'scale-300 opacity-80 animate-spin' : 'scale-150'
-              }`} />
+              {/* Core Energy Ring */}
+              <div className={`absolute inset-0 bg-gradient-to-r from-pink-500/60 to-purple-500/60 rounded-full blur-xl scale-110 transition-all duration-400 ${
+                logoExploding ? 'scale-140 opacity-95' : 'scale-110'
+              }`} 
+              style={{
+                animation: logoVisible ? 'breathe 3s ease-in-out infinite' : 'none'
+              }} />
               
-              {/* Secondary glow */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-violet-400/20 to-pink-400/20 rounded-full blur-2xl scale-200 transition-all duration-700 delay-200 ${
-                logoExploding ? 'scale-400 opacity-60' : 'scale-200'
-              }`} />
+              {/* Ambient Halo */}
+              <div className={`absolute inset-0 bg-gradient-to-r from-violet-400/40 to-pink-400/40 rounded-full blur-2xl scale-130 transition-all duration-300 delay-100 ${
+                logoExploding ? 'scale-180 opacity-80' : 'scale-130'
+              }`}
+              style={{
+                animation: logoVisible ? 'breathe-reverse 4s ease-in-out infinite' : 'none'
+              }} />
               
-              {/* Outer aura */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-purple-300/10 to-pink-300/10 rounded-full blur-4xl scale-300 transition-all duration-500 delay-400 ${
-                logoExploding ? 'scale-500 opacity-40' : 'scale-300'
-              }`} />
+              {/* Outer Energy Field */}
+              <div className={`absolute inset-0 bg-gradient-to-r from-purple-300/25 to-pink-300/25 rounded-full blur-3xl scale-160 transition-all duration-500 delay-200 ${
+                logoExploding ? 'scale-220 opacity-60' : 'scale-160'
+              }`}
+              style={{
+                animation: logoVisible ? 'breathe 5s ease-in-out infinite' : 'none'
+              }} />
             </div>
 
             {/* Main Logo with 3D effect */}
@@ -157,97 +168,23 @@ export default function LoginPage() {
                 }}
               />
             </div>
-
-            {/* Particle explosion effect */}
-            {particlesActive && (
-              <div className="absolute inset-0 pointer-events-none">
-                {[...Array(12)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-ping"
-                    style={{
-                      left: '50%',
-                      top: '50%',
-                      transform: `translate(-50%, -50%) rotate(${i * 30}deg) translateY(-${50 + i * 10}px)`,
-                      animationDelay: `${i * 0.1}s`,
-                      animationDuration: '0.8s'
-                    }}
-                  />
-                ))}
-                
-                {/* Additional micro particles */}
-                {[...Array(20)].map((_, i) => (
-                  <div
-                    key={`micro-${i}`}
-                    className="absolute w-1 h-1 bg-white/60 rounded-full animate-bounce"
-                    style={{
-                      left: `${45 + Math.random() * 10}%`,
-                      top: `${45 + Math.random() * 10}%`,
-                      animationDelay: `${i * 0.05}s`,
-                      animationDuration: `${0.5 + Math.random() * 0.5}s`
-                    }}
-                  />
-                ))}
-              </div>
-            )}
           </div>
-
-          {/* Floating geometric elements */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={`geo-${i}`}
-                className={`absolute w-3 h-3 border border-pink-300/30 rotate-45 transition-all duration-2000 ease-out ${
-                  logoVisible ? 'opacity-60 animate-pulse' : 'opacity-0'
-                }`}
-                style={{
-                  left: `${10 + i * 15}%`,
-                  top: `${20 + (i % 2) * 60}%`,
-                  animationDelay: `${i * 0.3}s`,
-                  animationDuration: `${2 + i * 0.5}s`
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Energy waves */}
-          {logoExploding && (
-            <div className="absolute inset-0 pointer-events-none">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={`wave-${i}`}
-                  className="absolute inset-0 border-2 border-pink-400/20 rounded-full animate-ping"
-                  style={{
-                    animationDelay: `${i * 0.2}s`,
-                    animationDuration: '1s'
-                  }}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Cinematic scan lines effect */}
-        <div className="absolute inset-0 z-20 pointer-events-none opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-1 animate-pulse" 
-               style={{ animation: 'scan 2s linear infinite' }} />
         </div>
       </div>
     )
   }
 
-  // Epic Login Page Entrance
+  // Modern Login Page Entrance
   return (
-    <div className={`h-screen relative overflow-hidden transition-all duration-1200 ease-out transform ${
+    <div className={`h-screen relative overflow-hidden transition-all duration-600 ease-out transform ${
       loginEntering 
-        ? 'opacity-100 scale-100 blur-0 rotateX-0' 
-        : 'opacity-0 scale-95 blur-sm rotateX-12'
+        ? 'opacity-100 scale-100 blur-0' 
+        : 'opacity-0 scale-98 blur-sm'
     }`}
     style={{
       transform: loginEntering 
-        ? 'perspective(1000px) rotateX(0deg) scale(1)' 
-        : 'perspective(1000px) rotateX(12deg) scale(0.95)',
-      transformStyle: 'preserve-3d'
+        ? 'scale(1)' 
+        : 'scale(0.98)'
     }}>
       {/* Video Background with entrance effect */}
       <div className={`absolute inset-0 z-0 transition-all duration-1000 ${
@@ -270,39 +207,38 @@ export default function LoginPage() {
 
       {/* Content Layer with staggered entrance */}
       <div className="relative z-10 h-screen flex flex-col">
-        {/* Top Navigation */}
-        <div className={`pt-6 px-6 transition-all duration-800 delay-300 ${
-          loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-        }`}>
-          {/* Back Button */}
-          <button 
-            onClick={() => router.back()}
-            className="mb-4 p-2 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-pink-500/20 transition-all duration-300 border border-pink-300/20 hover:border-pink-300/40 hover:scale-105 transform-gpu"
-          >
-            <ArrowLeftIcon className="w-5 h-5 text-pink-100" />
-          </button>
-        </div>
+
 
         {/* Main Content Container */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-4">
           {/* Logo Section */}
-          <div className={`text-center mb-6 transition-all duration-800 delay-500 transform ${
-            loginEntering ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-90'
+          <div className={`text-center mb-6 transition-all duration-400 delay-200 transform ${
+            loginEntering ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
           }`}>
             <div className="mb-4 flex justify-center">
-              <Image
-                src="/wiologo.svg"
-                alt="WIO Bank Logo"
-                width={120}
-                height={60}
-                className="filter brightness-0 invert"
-              />
+              <div className="relative"
+                   style={{
+                     animation: loginEntering ? 'float 6s ease-in-out infinite' : 'none'
+                   }}>
+                <Image
+                  src="/wiologo.svg"
+                  alt="WIO Bank Logo"
+                  width={120}
+                  height={60}
+                  className="filter brightness-0 invert drop-shadow-2xl"
+                />
+                {/* Subtle glow around main logo */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full blur-lg"
+                     style={{
+                       animation: loginEntering ? 'breathe 4s ease-in-out infinite' : 'none'
+                     }} />
+              </div>
             </div>
           </div>
 
           {/* Professional Hero Section */}
-          <div className={`text-center mb-8 w-full max-w-2xl transition-all duration-800 delay-700 transform ${
-            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          <div className={`text-center mb-8 w-full max-w-2xl transition-all duration-400 delay-300 transform ${
+            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             <h1 className="text-4xl md:text-4xl font-light text-white mb-4 leading-tight tracking-wide">
               Welcome to the
@@ -313,8 +249,8 @@ export default function LoginPage() {
           </div>
 
           {/* Refined Login Form */}
-          <div className={`w-full max-w-sm transition-all duration-800 delay-900 transform ${
-            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          <div className={`w-full max-w-sm transition-all duration-400 delay-400 transform ${
+            loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
           }`}>
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email Field */}
@@ -415,7 +351,7 @@ export default function LoginPage() {
           </div>
 
           {/* Professional Bottom Section */}
-          <div className={`mt-6 text-center space-y-2 transition-all duration-800 delay-1100 transform ${
+          <div className={`mt-6 text-center space-y-2 transition-all duration-400 delay-500 transform ${
             loginEntering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
           }`}>
             {/* License Information */}

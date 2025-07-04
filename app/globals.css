@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Professional Breathing Animations */
+@keyframes breathe {
+  0%, 100% { 
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05) translateZ(0);
+    opacity: 0.8;
+  }
+}
+
+@keyframes breathe-reverse {
+  0%, 100% { 
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(0.95) translateZ(0);
+    opacity: 1.2;
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) scale(1);
+  }
+  50% { 
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
