@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import QRCode from "qrcode-generator"
+import GlobalMenu from "@/components/GlobalMenu"
 
 // Types for the SMS plugin
 interface SMSObject {
@@ -236,10 +237,12 @@ export default function SMSPage() {
    }, 4000)
  }
 
- const handleLogout = () => {
-   // Simple logout - redirect back to login
-   router.push('/')
- }
+   const handleLogout = () => {
+    // Simple logout - redirect back to login
+    router.push('/')
+  }
+
+
 
  return (
    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-start p-4">
@@ -374,12 +377,17 @@ export default function SMSPage() {
                    <p className="text-sm font-medium text-gray-900">Network URL:</p>
                    <p className="text-sm text-blue-600 font-mono">{networkUrl}</p>
                  </div>
+                                </div>
                </div>
              </div>
            </div>
          </div>
        </div>
+       
+       {/* Global Menu */}
+       <GlobalMenu currentPage="sms" />
      </div>
-   </div>
- )
-} 
+   )
+ }
+
+ 
